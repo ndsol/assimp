@@ -129,6 +129,7 @@ corresponding preprocessor flag to selectively disable formats.
 #include "AssetLib/Q3D/Q3DLoader.h"
 #endif
 #ifndef ASSIMP_BUILD_NO_B3D_IMPORTER
+#include <assimp/anim.h>
 #include "AssetLib/B3D/B3DImporter.h"
 #endif
 #ifndef ASSIMP_BUILD_NO_COLLADA_IMPORTER

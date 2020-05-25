@@ -797,7 +797,7 @@ const aiScene* Importer::ApplyPostProcessing(unsigned int pFlags) {
 
 #ifdef ASSIMP_BUILD_NO_VALIDATEDS_PROCESS
         continue;
-#endif  // no validation
+#else  // no validation
 
         // If the extra verbose mode is active, execute the ValidateDataStructureStep again - after each step
         if (pimpl->bExtraVerbose)   {
@@ -810,6 +810,7 @@ const aiScene* Importer::ApplyPostProcessing(unsigned int pFlags) {
                 break;
             }
         }
+#endif  // no validation
 #endif // ! DEBUG
     }
     pimpl->mProgressHandler->UpdatePostProcess( static_cast<int>(pimpl->mPostProcessingSteps.size()), 
@@ -886,6 +887,7 @@ const aiScene* Importer::ApplyCustomizedPostProcessing( BaseProcess *rootProcess
     }
 
     // If the extra verbose mode is active, execute the ValidateDataStructureStep again - after each step
+#ifndef ASSIMP_BUILD_NO_VALIDATEDS_PROCESS
     if ( pimpl->bExtraVerbose || requestValidation  ) {
         ASSIMP_LOG_DEBUG( "Verbose Import: revalidating data structures" );
 
@@ -895,6 +897,7 @@ const aiScene* Importer::ApplyCustomizedPostProcessing( BaseProcess *rootProcess
             ASSIMP_LOG_ERROR( "Verbose Import: failed to revalidate data structures" );
         }
     }
+#endif
 
     // clear any data allocated by post-process steps
     pimpl->mPPShared->Clean();
